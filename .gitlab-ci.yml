@@ -4,6 +4,10 @@ image:
   name: docker/compose:1.24.1
   entrypoint: ["/bin/sh", "-c"]
 
+variables:
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_DRIVER: overlay2
+
 services:
   - docker:dind
 
