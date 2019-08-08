@@ -20,4 +20,4 @@ build:
   script:
     - docker-compose down
     - docker-compose build
-    - docker-compose up tester-image
+    - docker-compose up
