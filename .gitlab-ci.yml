@@ -11,12 +11,11 @@ variables:
 services:
   - docker:dind
 
-before_script:
-  - docker version
-  - docker-compose version
-
 build:
   stage: build
+  before_script:
+    - docker version
+    - docker-compose version
   script:
     - docker-compose build
     - docker-compose up --detach
