@@ -1,6 +1,7 @@
-# Official docker compose image.
+# Use a fixed version as latest tag doesn't exist
+# https://hub.docker.com/r/docker/compose/tags 
 image:
-  name: docker/compose:1.24.1 # update tag to whatever version you want to use.
+  name: docker/compose:1.24.1
   entrypoint: ["/bin/sh", "-c"]
 
 services:
