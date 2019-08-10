@@ -2,7 +2,7 @@
 # https://hub.docker.com/r/docker/compose/tags 
 image:
   name: docker/compose:1.24.1
-  entrypoint: ["/bin/sh", "-c"]
+  entrypoint: ["sh", "-c"]
 
 variables:
   DOCKER_HOST: tcp://docker:2375
@@ -18,6 +18,5 @@ before_script:
 build:
   stage: build
   script:
-    - docker-compose down
     - docker-compose build
     - docker-compose up --detach
