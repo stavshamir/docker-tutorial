@@ -11,8 +11,7 @@ variables:
 services:
   - docker:dind
 
-build:
-  stage: build
+Build and Test:
   before_script:
     - docker version
     - docker-compose version
