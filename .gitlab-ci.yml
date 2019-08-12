@@ -19,11 +19,11 @@ Build and Test:
   script:
     - docker-compose build
     - docker-compose up --detach
-    - until [ $(docker-compose logs app | grep -c 'Running on ') -eq 1 ];
+    - until [ $(docker-compose logs app | grep -c "Running on ") -eq 1 ];
       do
         sleep 2;
       done
-    - until [ $(docker-compose logs db | grep -c 'ready for connections') -eq 2 ];
+    - until [ $(docker-compose logs db | grep -c "ready for connections") -eq 2 ];
       do
         sleep 2;
       done
