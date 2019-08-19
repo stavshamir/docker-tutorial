@@ -1,5 +1,5 @@
 # Use a fixed version as latest tag doesn't exist
-# https://hub.docker.com/r/docker/compose/tags 
+# https://hub.docker.com/r/docker/compose/tags
 image:
   name: docker/compose:1.24.1
   entrypoint: ["sh", "-c"]
