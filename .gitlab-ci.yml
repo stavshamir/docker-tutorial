@@ -1,0 +1,39 @@
+# Use a fixed version as latest tag doesn't exist
+# https://hub.docker.com/r/docker/compose/tags
+image:
+  name: docker/compose:1.24.1
+  entrypoint: ["sh", "-c"]
+
+services:
+  - docker:dind
+
+variables:
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_DRIVER: overlay2
+
+Build and Test:
+  before_script:
+    - apk add --update curl
+    - docker version
+    - docker-compose version
+  script:
+    - docker-compose build
+    - docker-compose up --detach
+    - until [ $(docker-compose logs app | grep -c "Running on ") -eq 1 ];
+      do
+        sleep 2;
+      done
+    - until [ $(docker-compose logs db | grep -c "ready for connections") -eq 2 ];
+      do
+        sleep 2;
+      done
+    - >
+      echo -n '{"favorite_colors": [{"Lancelot": "blue"}, {"Galahad":
+      "yellow"}]}' > expected
+    - curl -f http://docker:5000 > output
+    - diff expected output
+    - touch success
+  after_script:
+    - if [ ! -e success ]; then
+        docker-compose logs;
+      fi
