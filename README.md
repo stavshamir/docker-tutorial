@@ -1,7 +1,6 @@
 Code for a creating a docker app with Flask and MySQL tutorial
 
-See:
-https://medium.com/@shamir.stav_83310/dockerizing-a-flask-mysql-app-with-docker-compose-c4f51d20b40d
+Refer to [blog post about creating a flask-mysql app with docker](https://stavshamir.github.io/python/dockerizing-a-flask-mysql-app-with-docker-compose/)
 
 ## GitLab CI
 
