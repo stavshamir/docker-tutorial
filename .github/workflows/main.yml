@@ -32,7 +32,7 @@ jobs:
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: application
-        IMAGE_TAG: latest
+        IMAGE_TAG: v1.0
       run: |
         cd app
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
@@ -42,7 +42,7 @@ jobs:
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: database
-        IMAGE_TAG: latest
+        IMAGE_TAG: v1.0
       run: |
         cd db
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
