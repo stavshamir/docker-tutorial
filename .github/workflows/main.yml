@@ -1,4 +1,4 @@
-name: Deploy to ECR
+name: Deploy to Amazon ECR
 
 on: 
   push:
@@ -9,46 +9,41 @@ on:
     - master
 
 jobs:
-  
   build:
-    
-    name: Build Image
+    name: Build and Push Docker Images
     runs-on: ubuntu-latest
    
     steps:
-
-    - name: Check out code
+    - name: Checkout Code
       uses: actions/checkout@v2
-
+      
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
+      with:
+        registry: 'aws-account-id.dkr.ecr.us-east-1.amazonaws.com'
+        region: 'us-east-1'
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
-        AWS_REGION: us-east-1
 
-    - name: Build, test, tag, and push image to Amazon ECR
+    - name: Build and Push App Docker Image to Amazon ECR
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: application
         IMAGE_TAG: latest
       run: |
         cd app
-        
-        #Docker build
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-     
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         
-    - name: Build, test, tag, and push image to Amazon ECR
+    - name: Build and Push Database Docker Image to Amazon ECR
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: database
         IMAGE_TAG: latest
       run: |
         cd db
-        #Docker build
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
