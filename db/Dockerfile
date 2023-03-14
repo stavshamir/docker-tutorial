@@ -8,4 +8,4 @@ WORKDIR /app
 COPY ./init.sql /docker-entrypoint-initdb.d/
 
 # Expose port 3306 for MySQL connections
-EXPOSE 5000
+EXPOSE 3306
